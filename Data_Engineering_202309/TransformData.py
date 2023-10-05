@@ -34,6 +34,7 @@ class TransformData:
 
         list_to_pop = ['event_timestamp', 'event_time', 'event_date', 'conv_time', 'conv_date', 'user_id']
         [merged_data.pop(col) for col in list_to_pop]
+        merged_data['conversion']=1
         # Group by conv_id and aggregate sessions into lists of dictionaries
         customer_journeys = merged_data.groupby('conversion_id').apply(lambda x: x.to_dict(orient='records')).to_dict()
 
