@@ -34,6 +34,7 @@ customer_journeys = [{'conversion_id': 'EU02785522',
                       'conversion': 1,
                       'impression_interaction': 0}]
 
+
 redistribution_parameter = {
     'initializer': {
         'direction': 'earlier_sessions_only',

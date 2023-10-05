@@ -1,3 +1,5 @@
+import json
+
 import requests
 
 
@@ -28,22 +30,55 @@ class APIAccess:
             chunks = [sessions[i:i + chunk_size] for i in range(0, len(sessions), chunk_size)]
 
             for chunk in chunks:
-                payload = {
-                    "api_key": api_key,
-                    "conv_type_id": conv_type_id,
-                    "conv_id": conv_id,
-                    "sessions": chunk
+
+                print(chunk)
+                redistribution_parameter = {
+                    'initializer': {
+                        'direction': 'earlier_sessions_only',
+                        'receive_threshold': 0,
+                        'redistribution_channel_labels': ['Direct', 'Email_Newsletter'],
+                    },
+                    'holder': {
+                        'direction': 'any_session',
+                        'receive_threshold': 0,
+                        'redistribution_channel_labels': ['Direct', 'Email_Newsletter'],
+                    },
+                    'closer': {
+                        'direction': 'later_sessions_only',
+                        'receive_threshold': 0.1,
+                        'redistribution_channel_labels': ['SEO - Brand'],
+                    }
+                }
+                # Make API call
+                body = {
+                    'customer_journeys': chunk,
+                    'redistribution_parameter': redistribution_parameter
                 }
 
-                # Make API call
-                response = requests.post(api_url, json=payload)
+                response = requests.post(
+                    api_url,
+                    data=json.dumps(body),
+                    headers={
+                        'Content-Type': 'application/json',
+                        'x-api-key': api_key
+                    }
+                )
                 results = response.json()
 
 
 
-                print (results)
+
                 # Handle the response and update attribution results
                 # Here, you should parse the response and update attribution_results with the received data
+                print("Status Code: " + str(results['statusCode']))
+
+                print("-" * 30)
+
+                print("Partial Failure Errors:" + str(results['partialFailureErrors']))
+
+                print("-" * 30)
+
+                print (results['value'])
 
         return attribution_results
 

@@ -12,7 +12,7 @@ class APIAccessTest(unittest.TestCase):
             '/Users/zgolli/PycharmProjects/challenge.db')
 
         tf = TransformData()
-        customer_journeys = tf.query_and_build_customer_journeys(session_sources, conversions)
+        customer_journeys = tf.query_transform_and_build_customer_journeys(session_sources, conversions)
         api=APIAccess()
         attribution_results = api.send_data_to_ihc_api(customer_journeys)
         print(attribution_results)
