@@ -37,7 +37,11 @@ class APIAccess:
 
                 # Make API call
                 response = requests.post(api_url, json=payload)
-                print(response.text)
+                results = response.json()
+
+
+
+                print (results)
                 # Handle the response and update attribution results
                 # Here, you should parse the response and update attribution_results with the received data
 
