@@ -1,7 +1,7 @@
 import unittest
 
-from Data_Engineering_202309.ReadDb import ReadDb
-from Data_Engineering_202309.TransformData import TransformData
+from Data_Engineering_202309.data.access.ReadDb import ReadDb
+from Data_Engineering_202309.data.transformation.TransformData import TransformData
 
 
 class TransformDataTest(unittest.TestCase):
@@ -25,7 +25,6 @@ class TransformDataTest(unittest.TestCase):
         tf = TransformData()
         channel_report = tf.fill_channel_reporting(session_sources, session_costs, conversions, attribute_cust_journey)
 
-        print(channel_report)
         assert True
 
     def test_calculate_metrics_channel_report(self):
@@ -34,7 +33,7 @@ class TransformDataTest(unittest.TestCase):
         channel_report = db.query_data_from_database('/Users/zgolli/PycharmProjects/challenge.db', 'channel_reporting')
         tf = TransformData()
         channel_report = tf.create_aggregated_metrics(channel_report)
-        print(channel_report)
+
         assert True
 
     def test_write_channel_report(self):

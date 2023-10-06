@@ -1,8 +1,8 @@
 import unittest
 
-from Data_Engineering_202309.APIAccess import APIAccess
-from Data_Engineering_202309.ReadDb import ReadDb
-from Data_Engineering_202309.TransformData import TransformData
+from Data_Engineering_202309.api.APIAccess import APIAccess
+from Data_Engineering_202309.data.access.ReadDb import ReadDb
+from Data_Engineering_202309.data.transformation.TransformData import TransformData
 
 
 class APIAccessTest(unittest.TestCase):

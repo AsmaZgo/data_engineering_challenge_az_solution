@@ -1,6 +1,6 @@
 import pandas as pd
 
-from Data_Engineering_202309.UpdateDB import UpdateDb
+from Data_Engineering_202309.data.access.UpdateDB import UpdateDb
 
 
 class TransformData:
