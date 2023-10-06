@@ -17,7 +17,7 @@ class UpdateDBTest(unittest.TestCase):
         api = APIAccess()
         attribution_results = api.send_data_to_ihc_api(customer_journeys)
         writer=UpdateDb()
-        writer.WriteDFtoDB('/Users/zgolli/PycharmProjects/challenge.db',attribution_results)
+        writer.WriteDFtoDB('/Users/zgolli/PycharmProjects/challenge.db',attribution_results,'attribution_customer_journey')
         assert True
 
 

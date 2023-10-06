@@ -35,4 +35,11 @@ if __name__ == '__main__':
     """
     data = pd.read_sql_query(query, conn)
     print(data.T)
+
+    # Verifying the channel reporting table
+    query = "SELECT * from channel_reporting"
+    data = pd.read_sql_query(query, conn)
+    print(data.T)
+
+
     conn.close()

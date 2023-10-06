@@ -1,5 +1,7 @@
 import pandas as pd
 
+from Data_Engineering_202309.UpdateDB import UpdateDb
+
 
 class TransformData:
     def __init__(self):
@@ -39,3 +41,30 @@ class TransformData:
         customer_journeys = merged_data.groupby('conversion_id').apply(lambda x: x.to_dict(orient='records')).to_dict()
 
         return customer_journeys
+
+    def fill_channel_reporting(self,session_sources, session_costs, conversions, attribution_customer_journey):
+
+        channel_reporting = pd.merge(session_sources, session_costs, on='session_id', how='inner')
+        channel_reporting = pd.merge(channel_reporting, conversions, on='user_id', how='inner')
+        channel_reporting = pd.merge(channel_reporting, attribution_customer_journey, on='conv_id', how='inner')
+        writer = UpdateDb()
+        writer.WriteDFtoDB('/Users/zgolli/PycharmProjects/challenge.db', channel_reporting,
+                           'channel_reporting')
+
+        return channel_reporting
+
+    def create_aggregated_metrics(self,channel_reporting):
+        # Group by channel_name and event_date, aggregate data and calculate CPO and ROAS
+        channel_reporting = channel_reporting.groupby(['channel_name', 'event_date']).agg({
+            'cost': 'sum',
+            'ihc': 'sum',
+            'revenue': 'sum'
+        }).reset_index()
+
+        channel_reporting['CPO'] = channel_reporting['cost'] / channel_reporting['ihc']
+        channel_reporting['ROAS'] = channel_reporting['revenue'] / channel_reporting['cost']
+
+        return channel_reporting
+
+    def write_channel_reporting_to_csv(self,channel_reporting, file_path):
+        channel_reporting.to_csv(file_path, index=False)

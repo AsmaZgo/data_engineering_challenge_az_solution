@@ -13,6 +13,13 @@ class ReadDb:
         conn.close()
         return data
 
+    def query_data_from_database(self, database_path,table_name):
+        conn = sqlite3.connect(database_path)
+        query = "SELECT * FROM {}".format(table_name)
+        data = pd.read_sql_query(query, conn)
+        conn.close()
+        return data
+
     def query_all_data_from_database(self, database_path):
         conn = sqlite3.connect(database_path)
 
