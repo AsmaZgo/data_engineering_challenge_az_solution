@@ -17,7 +17,22 @@ if __name__ == '__main__':
     print(data.T)
 
     # checking the attribution results
-    query = "SELECT * from attribution_results"
+    query = "SELECT * from attribution_customer_journey"
+    data = pd.read_sql_query(query, conn)
+    print(data.T)
+
+
+    #checking the correctness of the attribution
+    query = """
+    
+    SELECT
+    conv_id,
+    SUM(ihc) AS total_ihc
+    from
+        attribution_customer_journey
+    GROUP BY
+        conv_id
+    """
     data = pd.read_sql_query(query, conn)
     print(data.T)
     conn.close()

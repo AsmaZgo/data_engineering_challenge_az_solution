@@ -7,5 +7,5 @@ class UpdateDb:
         pass
     def WriteDFtoDB(self,database_path,df):
         conn = sqlite3.connect(database_path)
-        df.to_sql('attribution_results', conn, index=True, if_exists='replace')
+        df.to_sql('attribution_customer_journey', conn, index=False, if_exists='replace')
         conn.close()
