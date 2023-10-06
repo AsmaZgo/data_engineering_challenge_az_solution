@@ -1,6 +1,9 @@
 import json
+
+import pandas as pd
 import requests
 
+from pandas.io.json import json_normalize
 customer_journeys = [{'conversion_id': 'EU02785522',
                       'session_id': '2020-12-27_0001_DE_82a8917d-d9cb-a665-a1ce-34e9a279445c',
                       'timestamp': '2020-12-27 18:04:24',
@@ -86,3 +89,5 @@ if __name__ == "__main__":
     print("-" * 30)
 
     print (results['value'])
+    df=pd.DataFrame.from_dict(results['value'])
+    print(df.head())

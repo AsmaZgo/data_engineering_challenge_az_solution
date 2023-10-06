@@ -1,1 +1,3 @@
-{}
+{
+  "test_APIAccess.py::APIAccessTest::test_send_data_to_ihc_api": true
+}
