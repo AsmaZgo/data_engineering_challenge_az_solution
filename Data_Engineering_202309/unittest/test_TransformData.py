@@ -20,32 +20,32 @@ class TransformDataTest(unittest.TestCase):
         db = ReadDb()
         session_sources, conversions, session_costs = db.query_all_data_from_database(
             '/Users/zgolli/PycharmProjects/challenge.db')
-        attribute_cust_journey=db.query_data_from_database( '/Users/zgolli/PycharmProjects/challenge.db','attribution_customer_journey')
+        attribute_cust_journey = db.query_data_from_database('/Users/zgolli/PycharmProjects/challenge.db',
+                                                             'attribution_customer_journey')
         tf = TransformData()
-        channel_report = tf.fill_channel_reporting(session_sources,session_costs,conversions,attribute_cust_journey)
+        channel_report = tf.fill_channel_reporting(session_sources, session_costs, conversions, attribute_cust_journey)
 
         print(channel_report)
         assert True
-
-
 
     def test_calculate_metrics_channel_report(self):
         db = ReadDb()
 
-        channel_report=db.query_data_from_database( '/Users/zgolli/PycharmProjects/challenge.db','channel_reporting')
+        channel_report = db.query_data_from_database('/Users/zgolli/PycharmProjects/challenge.db', 'channel_reporting')
         tf = TransformData()
-        channel_report=tf.create_aggregated_metrics(channel_report)
+        channel_report = tf.create_aggregated_metrics(channel_report)
         print(channel_report)
         assert True
-
 
     def test_write_channel_report(self):
         db = ReadDb()
 
-        channel_report=db.query_data_from_database( '/Users/zgolli/PycharmProjects/challenge.db','channel_reporting')
+        channel_report = db.query_data_from_database('/Users/zgolli/PycharmProjects/challenge.db', 'channel_reporting')
         tf = TransformData()
-        channel_report=tf.create_aggregated_metrics(channel_report)
-        tf.write_channel_reporting_to_csv(channel_report,"channel_report.csv")
+        channel_report = tf.create_aggregated_metrics(channel_report)
+        tf.write_channel_reporting_to_csv(channel_report, "channel_report.csv")
         assert True
+
+
 if __name__ == '__main__':
     unittest.main()
