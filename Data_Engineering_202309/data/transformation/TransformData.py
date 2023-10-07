@@ -48,7 +48,8 @@ class TransformData:
         channel_reporting = pd.merge(channel_reporting, conversions, on='user_id', how='inner')
         channel_reporting = pd.merge(channel_reporting, attribution_customer_journey, on='conv_id', how='inner')
         writer = UpdateDb()
-        writer.WriteDFtoDB('/Users/zgolli/PycharmProjects/challenge.db', channel_reporting,
+        writer.openConn('/Users/zgolli/PycharmProjects/challenge.db')
+        writer.WriteDFtoDBFromConn(channel_reporting,
                            'channel_reporting')
 
         return channel_reporting
