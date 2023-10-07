@@ -7,13 +7,12 @@ from Data_Engineering_202309.data.transformation.TransformData import TransformD
 
 class APIAccessTest(unittest.TestCase):
     def test_send_data_to_ihc_api(self):
-        db = ReadDb()
-        session_sources, conversions, session_costs = db.query_all_data_from_database(
-            '/Users/zgolli/PycharmProjects/challenge.db')
+        db = ReadDb('/Users/zgolli/PycharmProjects/challenge.db')
+        session_sources, conversions, session_costs = db.query_all_data_from_database()
 
         tf = TransformData()
         customer_journeys = tf.query_transform_and_build_customer_journeys(session_sources, conversions)
-        api=APIAccess()
+        api = APIAccess()
         attribution_results = api.send_data_to_ihc_api(customer_journeys)
         print(attribution_results)
         assert True

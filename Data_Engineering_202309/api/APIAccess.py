@@ -79,5 +79,5 @@ class APIAccess:
                     attribution_results = df
                 else:
                     attribution_results = pd.concat([attribution_results, df])
-
+        print(attribution_results)
         return attribution_results[['conversion_id', 'session_id', 'ihc']].rename(columns={"conversion_id": "conv_id"})
